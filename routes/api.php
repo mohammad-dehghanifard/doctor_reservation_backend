@@ -10,3 +10,4 @@ Route::get('/user', function (Request $request) {
 
 Route::post("create-category",[CategoryController::class,"create"]);
 Route::put("update-category/{id}",[CategoryController::class,"update"]);
+Route::delete("delete-category/{id}",[CategoryController::class,"delete"]);

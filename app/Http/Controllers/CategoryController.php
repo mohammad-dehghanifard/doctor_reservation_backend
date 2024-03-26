@@ -77,5 +77,15 @@ class CategoryController extends Controller
         ]);
     }
     //حذف دسته بندی
+    public function delete($id) : JsonResponse
+    {
+        Category::findOrFail($id)->delete();
+       return response() -> json(
+           [
+               "success" => true,
+               "message" => "تخصص مورد نظر با موفقیت حذف شد"
+           ]
+       );
+    }
     // دریافت لیست کامل دسته بندی ها
 }
