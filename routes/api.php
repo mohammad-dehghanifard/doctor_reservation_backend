@@ -9,3 +9,4 @@ Route::get('/user', function (Request $request) {
 })->middleware('auth:sanctum');
 
 Route::post("create-category",[CategoryController::class,"create"]);
+Route::put("update-category/{id}",[CategoryController::class,"update"]);
