@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Category;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
@@ -88,4 +89,8 @@ class CategoryController extends Controller
        );
     }
     // دریافت لیست کامل دسته بندی ها
+    public function fetch():Collection
+    {
+        return Category::all();
+    }
 }
