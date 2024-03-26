@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\CategoryResource;
 use App\Models\Category;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
 use Illuminate\Support\Facades\Validator;
 
 class CategoryController extends Controller
@@ -89,8 +91,8 @@ class CategoryController extends Controller
        );
     }
     // دریافت لیست کامل دسته بندی ها
-    public function fetch():Collection
+    public function fetch(): AnonymousResourceCollection
     {
-        return Category::all();
+        return CategoryResource::collection(Category::all());
     }
 }
