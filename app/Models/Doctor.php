@@ -12,4 +12,9 @@ class Doctor extends Model
     protected $fillable = [
         'name','mobile','address','category_id','resume'
     ];
+
+    public function category()
+    {
+        return $this->belongsTo(Category::class);
+    }
 }

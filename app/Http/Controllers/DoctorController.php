@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\DoctorResource;
 use App\Models\Doctor;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
 use Illuminate\Support\Facades\Validator;
 
 class DoctorController extends Controller
@@ -88,8 +90,8 @@ class DoctorController extends Controller
         ]);
     }
 
-    public function fetch(): Collection
+    public function fetch(): AnonymousResourceCollection
     {
-       return Doctor::all();
+       return DoctorResource::collection(Doctor::with("category") -> get());
     }
 }
