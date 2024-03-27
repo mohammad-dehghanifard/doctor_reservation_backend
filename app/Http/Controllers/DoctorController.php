@@ -90,8 +90,25 @@ class DoctorController extends Controller
         ]);
     }
 
-    public function fetch(): AnonymousResourceCollection
+    public function fetch(Request $request): AnonymousResourceCollection
     {
-       return DoctorResource::collection(Doctor::with("category") -> get());
+       $doctorList = Doctor::with("category");
+
+       if ($request->has("keyword"))
+       {
+           $doctorList -> where("name","LIKE","%" .$request->keyword ."%");
+       }
+
+       if($request->has("category_id"))
+       {
+           $doctorList -> where("category_id",$request->category_id );
+       }
+
+       if ($request->has("resume_keyword"))
+       {
+           $doctorList -> where("resume","LIKE","%". $request->resume_keyword ."%");
+       }
+
+       return DoctorResource::collection($doctorList -> get());
     }
 }
