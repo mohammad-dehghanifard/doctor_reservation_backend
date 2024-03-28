@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Resources\DoctorResource;
 use App\Models\Doctor;
+use App\Models\Reservation;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
@@ -110,5 +111,38 @@ class DoctorController extends Controller
        }
 
        return DoctorResource::collection($doctorList -> get());
+    }
+
+    public function reserve(Request $request) : JsonResponse
+    {
+        $validator = Validator::make(
+            $request->all(),
+            [
+                "user_id" => "required|exists:users,id",
+                "doctor_id" => "required|exists:doctors,id",
+                "date" => "required"
+            ]
+        );
+
+        if($validator->fails())
+        {
+            return response() -> json(
+                [
+                    "success" => false,
+                    "message" => $validator ->errors() -> first()
+                ],
+                400
+            );
+        }
+
+        $reserve = Reservation::create($request->all());
+
+        return response() ->json(
+            [
+                "success" => true,
+                "message" => "رزرو شما با موفیت انجام شد",
+                "reserve" => $reserve
+            ]
+        );
     }
 }
