@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\DoctorController;
 use Illuminate\Http\Request;
@@ -21,3 +22,6 @@ Route::post("reserve",[DoctorController::class,"reserve"]);
 Route::post("create-doctor",[DoctorController::class,"create"]);
 Route::put("update-doctor/{id}",[DoctorController::class,"update"]);
 Route::delete("delete-doctor/{id}",[DoctorController::class,"delete"]);
+
+// Auth
+Route::post("register",[AuthController::class,"register"]);
