@@ -147,4 +147,10 @@ class DoctorController extends Controller
             ]
         );
     }
+
+    public function fetchReservation(Request $request)
+    {
+        return $request -> user() -> reservations;
+    }
+
 }

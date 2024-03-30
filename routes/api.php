@@ -19,6 +19,7 @@ Route::delete("delete-category/{id}",[CategoryController::class,"delete"]);
 // Doctor
 Route::get("doctors",[DoctorController::class,"fetch"]);
 Route::middleware('auth:sanctum')->post("reserve",[DoctorController::class,"reserve"]);
+Route::middleware('auth:sanctum') ->get("reserves",[DoctorController::class,"fetchReservation"]);
 Route::post("create-doctor",[DoctorController::class,"create"]);
 Route::put("update-doctor/{id}",[DoctorController::class,"update"]);
 Route::delete("delete-doctor/{id}",[DoctorController::class,"delete"]);
