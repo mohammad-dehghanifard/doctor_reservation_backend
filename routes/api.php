@@ -25,3 +25,4 @@ Route::delete("delete-doctor/{id}",[DoctorController::class,"delete"]);
 
 // Auth
 Route::post("register",[AuthController::class,"register"]);
+Route::post("login",[AuthController::class,"login"]);

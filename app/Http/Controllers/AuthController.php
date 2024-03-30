@@ -45,4 +45,59 @@ class AuthController extends Controller
             ]
         );
     }
+
+    public function login(Request $request) : JsonResponse
+    {
+        $validator = Validator::make(
+            $request->all(),
+            [
+                "username" => "required",
+                "password" => "required",
+            ]
+        );
+
+        if ($validator->fails())
+        {
+            return response() -> json(
+                [
+                    "success" => false,
+                    "message" => $validator->errors()->first()
+                ],
+                400
+            );
+        }
+
+        $user = User::where("username",$request->username)->first();
+
+        if (!$user)
+        {
+            return response() -> json(
+                [
+                    "success" => false,
+                    "message" => "نام کاربری یا رمز عبور وارد شده صحیح نمیباشد"
+                ],
+                401
+            );
+        }
+
+        if(!Hash::check($request->password,$user->password))
+        {
+            return response() -> json(
+                [
+                    "success" => false,
+                    "message" => "نام کاربری یا رمز عبور وارد شده صحیح نمیباشد"
+                ],
+                401
+            );
+        }
+        $token = $user->createToken("User-Token")->plainTextToken;
+
+        return response() -> json(
+            [
+                "success" => true,
+                "message" => "با موفقیت وارد شدید",
+                "token" => $token
+            ]
+        );
+    }
 }
