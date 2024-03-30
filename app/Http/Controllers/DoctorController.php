@@ -118,7 +118,6 @@ class DoctorController extends Controller
         $validator = Validator::make(
             $request->all(),
             [
-                "user_id" => "required|exists:users,id",
                 "doctor_id" => "required|exists:doctors,id",
                 "date" => "required"
             ]
@@ -135,7 +134,10 @@ class DoctorController extends Controller
             );
         }
 
-        $reserve = Reservation::create($request->all());
+        $data = $request->all();
+        $data['user_id'] = $request->user()->id;
+
+        $reserve = Reservation::create($data);
 
         return response() ->json(
             [
